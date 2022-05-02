@@ -1,3 +1,9 @@
 .App {
   text-align: center;
 }
+
+.chatrooms {
+  display: flex;
+  justify-content: space-around;
+  /* text-align: left; */
+}
