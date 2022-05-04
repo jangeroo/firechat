@@ -34,6 +34,7 @@ const alertUserJoined = ({ roomId, user }) => {
 
 const joinChat = (action) => {
   setUserOnline(action);
+  cleanupPreviousAlerts(action);
   sendMessage({
     ...action,
     user: null,
@@ -56,6 +57,10 @@ const monitorMessages = ({ roomId, dispatch }) => {
   });
 };
 
+const cleanupPreviousAlerts = ({ roomId, dispatch }) => {
+  dispatch({ type: "CLEANUP_ALERTS", roomId });
+};
+
 const api = (action) => {
   console.log(`DB MIDDLEWARE - action: ${action.type}`);
   console.log({ action });
@@ -75,6 +80,7 @@ const api = (action) => {
       sendMessage(action);
       break;
     case "MESSAGE_ADDED":
+    case "CLEANUP_ALERTS":
       // intentionally do nothing here.
       break;
     default:

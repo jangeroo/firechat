@@ -14,6 +14,8 @@ const reducer = (state, action) => {
   console.log(`REDUCER - action: ${action.type}`);
   console.log({ action });
 
+  let messages;
+
   switch (action.type) {
     case "JOIN":
       return { ...state, currentUser: action.user };
@@ -21,7 +23,10 @@ const reducer = (state, action) => {
       console.log(`DISPATCHED: LEAVE`);
       return { ...state, currentUser: null };
     case "MESSAGE_ADDED":
-      const messages = state.messages.concat(action.message);
+      messages = state.messages.concat(action.message);
+      return { ...state, messages };
+    case "CLEANUP_ALERTS":
+      messages = state.messages.filter((message) => message.user);
       return { ...state, messages };
     case "SEND_MESSAGE":
       // intentionally do nothing here
