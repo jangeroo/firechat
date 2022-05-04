@@ -17,11 +17,11 @@ export default function DemoBanner(props) {
 const DemoBannerWrapper = styled.div`
   position: relative;
 
-  width: 75%;
-  height: 100px;
+  width: fit-content;
+  max-width: 50%;
 
   margin: auto;
-  padding: 10px;
+  padding: 10px 30px;
 
   border: 2px solid;
   border-radius: 10px;
