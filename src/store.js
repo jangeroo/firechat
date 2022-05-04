@@ -20,7 +20,6 @@ const reducer = (state, action) => {
     case "JOIN":
       return { ...state, currentUser: action.user };
     case "LEAVE":
-      console.log(`DISPATCHED: LEAVE`);
       return { ...state, currentUser: null };
     case "MESSAGE_ADDED":
       messages = state.messages.concat(action.message);

@@ -13,7 +13,7 @@ export default function Chatroom(props) {
 
   const handleLeaveChat = (event) => {
     console.log("Handling Leave Chat");
-    dispatch({ type: "LEAVE" });
+    dispatch({ type: "LEAVE", user: state.currentUser, roomId: props.roomId });
   };
 
   const sendMessage = (event) => {

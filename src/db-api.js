@@ -1,9 +1,9 @@
 import { database as db } from "./firebase.js";
 
-const setUserOnline = ({ roomId, user }) => {
+const setUserStatus = ({ roomId, user }, status) => {
   let ref = db.ref(`${roomId}/users/${user}`);
   ref.child("name").set(user);
-  ref.child("status").set("online");
+  ref.child("status").set(status);
 };
 
 const setUpUserDisconnect = ({ roomId, user }) => {
@@ -24,29 +24,25 @@ const sendMessage = ({ roomId, user, content }) => {
   db.ref(`${roomId}/messages`).push().set({ user, content });
 };
 
-const alertUserJoined = ({ roomId, user }) => {
+const alertUserConnection = ({ roomId, user }, status) => {
   sendMessage({
     roomId,
-    user,
-    message: { user, content: `${user} just joined the room` },
+    user: null,
+    content: `${user} just ${status} the room`,
   });
 };
 
 const joinChat = (action) => {
-  setUserOnline(action);
+  setUserStatus(action, "online");
   cleanupPreviousAlerts(action);
-  sendMessage({
-    ...action,
-    user: null,
-    content: `${action.user} just joined the chat`,
-  });
+  alertUserConnection(action, "joined");
   setUpUserDisconnect(action);
   setUpDisconnectAlert(action);
 };
 
-const leaveChat = () => {
-  console.log("leaving chat");
-  db.goOffline();
+const leaveChat = (action) => {
+  setUserStatus(action, "offline");
+  alertUserConnection(action, "left");
 };
 
 const monitorMessages = ({ roomId, dispatch }) => {
