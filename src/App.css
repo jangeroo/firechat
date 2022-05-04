@@ -2,8 +2,29 @@
   text-align: center;
 }
 
-.chatrooms {
+body {
+  background-color: skyblue;
+  --color-main: mediumblue;
+  --color-callout:deepskyblue;
   display: flex;
-  justify-content: space-around;
-  /* text-align: left; */
+  flex-direction: column;
+  height: 100vh;
+  color: var(--color-main)
+}
+
+
+button {
+  width: 100px;
+  margin: auto 10px;
+  padding: 5px;
+  background-color: var(--color-callout);
+  border: 1px solid var(--color-main);
+  border-radius: 5px;
+  font-weight: bold;
+  color: var(--color-main)
+}
+
+input {
+  border-radius: 5px;
+
 }

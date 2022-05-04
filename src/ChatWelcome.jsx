@@ -16,14 +16,26 @@ export default function ChatWelcome(props) {
   return (
     <WelcomeWrapper>
       <h3>Enter your name to join the chat</h3>
-      <div>
-        <form onSubmit={handleJoinChat}>
-          <input type="text" ref={usernameInputRef} required />
-          <button>Join chat</button>
-        </form>
-      </div>
+
+      <Form onSubmit={handleJoinChat}>
+        <input type="text" ref={usernameInputRef} required />
+        <button>Join chat</button>
+      </Form>
     </WelcomeWrapper>
   );
 }
 
-const WelcomeWrapper = styled.div``;
+const WelcomeWrapper = styled.div`
+  margin: auto;
+  width: 75%;
+  max-width: 500px;
+  text-align: left;
+`;
+
+const Form = styled.form`
+  display: flex;
+
+  input {
+    flex-grow: 1;
+  }
+`;

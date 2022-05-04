@@ -1,4 +1,5 @@
 import { useState } from "react";
+// import "./css-reset.css";
 import "./App.css";
 import AppContext from "./AppContext";
 import useReducerWithMiddleware from "./reducer-middleware";
@@ -27,9 +28,7 @@ function App() {
           <DemoBanner onClose={() => setDemoBannerDisplayed(false)} />
         )}
 
-        <div className="chatrooms">
-          <Chatroom roomId={3} />
-        </div>
+        <Chatroom roomId={3} />
       </div>
     </AppContext.Provider>
   );

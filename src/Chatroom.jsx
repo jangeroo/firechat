@@ -29,6 +29,9 @@ export default function Chatroom(props) {
   };
 
   const renderMessage = (message, i) => {
+    const style = {
+      color: message.user === state.currentUser ? "blue" : "inherit",
+    };
     if (!message.user)
       return (
         <Message key={i}>
@@ -37,34 +40,64 @@ export default function Chatroom(props) {
       );
     return (
       <Message key={i}>
-        <b>{message.user}:</b> {message.content}
+        <b style={style}>{message.user}:</b> {message.content}
       </Message>
     );
   };
 
   if (!state.currentUser) return <ChatWelcome roomId={props.roomId} />;
   return (
-    <div className="chatroom">
-      <h3 className="container">
-        <span className="left main">
+    <ChatroomWrapper>
+      <Header>
+        <span>
           Welcome <strong>{state.currentUser}</strong>! Start chatting :)
         </span>
         <button onClick={handleLeaveChat}>Leave Chat</button>
-      </h3>
-      <form onSubmit={sendMessage}>
-        <input type="text" ref={messageInputRef} required />
-        <button>Send Message</button>
-      </form>
+      </Header>
       <MessageList className="message-window">
         {state.messages.map(renderMessage)}
       </MessageList>
-    </div>
+      <Form onSubmit={sendMessage}>
+        <input type="text" ref={messageInputRef} required />
+        <button>Send</button>
+      </Form>
+    </ChatroomWrapper>
   );
 }
 
-const MessageList = styled.ol`
-  list-style: none;
+const ChatroomWrapper = styled.div`
+  margin: auto;
+  width: 75%;
+  max-width: 500px;
   text-align: left;
 `;
 
-const Message = styled.li``;
+const Header = styled.h3`
+  display: flex;
+
+  span {
+    flex-grow: 1;
+  }
+`;
+
+const Form = styled.form`
+  display: flex;
+
+  input {
+    flex-grow: 1;
+  }
+`;
+
+const MessageList = styled.div`
+  position: relative;
+  margin: 10px;
+  overflow-y: auto;
+  max-height: 400px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Message = styled.div`
+  margin: 5px 0px;
+`;
