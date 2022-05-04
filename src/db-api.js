@@ -54,15 +54,18 @@ const leaveChat = () => {
 };
 
 const api = (action) => {
-  console.log("DB MIDDLEWARE");
+  console.log(`DB MIDDLEWARE - action: ${action.type}`);
   console.log({ action });
+
   switch (action.type) {
     case "JOIN":
       console.log("DB joining chat");
       joinChat(action);
       break;
-    default:
+    case "LEAVE":
       leaveChat(action);
+      break;
+    default:
       break;
   }
 };

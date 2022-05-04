@@ -4,9 +4,11 @@ const initialState = {
 };
 
 const reducer = (state, action) => {
+  console.log(`REDUCER - action: ${action.type}`);
+  console.log({ action });
+
   switch (action.type) {
     case "JOIN":
-      console.log(`DISPATCHED: JOIN - ${action.user} to room${action.roomId}`);
       return { ...state, currentUser: action.user };
 
     case "LEAVE":
