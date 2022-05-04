@@ -21,11 +21,13 @@ const reducer = (state, action) => {
       console.log(`DISPATCHED: LEAVE`);
       return { ...state, currentUser: null };
     case "MESSAGE_ADDED":
-      console.log({ messagesBefore: state.messages });
       const messages = state.messages.concat(action.message);
-      console.log({ messagesAfter: messages });
       return { ...state, messages };
+    case "SEND_MESSAGE":
+      // intentionally do nothing here
+      return state;
     default:
+      console.log(`ERROR in REDUCER - Unknown action: ${action.type}`);
       return state;
   }
 };

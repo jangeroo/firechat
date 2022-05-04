@@ -20,11 +20,8 @@ const setUpDisconnectAlert = ({ roomId, user }) => {
     .set(`${user} just left the room`);
 };
 
-const sendMessage = ({ roomId, user, message }) => {
-  db.ref(`${roomId}/messages`).push().set({
-    user: message.user,
-    content: message.content,
-  });
+const sendMessage = ({ roomId, user, content }) => {
+  db.ref(`${roomId}/messages`).push().set({ user, content });
 };
 
 const alertUserJoined = ({ roomId, user }) => {
@@ -39,14 +36,11 @@ const joinChat = (action) => {
   setUserOnline(action);
   sendMessage({
     ...action,
-    message: {
-      user: null,
-      content: `${action.user} just joined the chat`,
-    },
+    user: null,
+    content: `${action.user} just joined the chat`,
   });
   setUpUserDisconnect(action);
   setUpDisconnectAlert(action);
-  monitorMessages(action);
 };
 
 const leaveChat = () => {
@@ -67,6 +61,9 @@ const api = (action) => {
   console.log({ action });
 
   switch (action.type) {
+    case "MONITOR_MESSAGES":
+      monitorMessages(action);
+      break;
     case "JOIN":
       console.log("DB joining chat");
       joinChat(action);
@@ -74,7 +71,14 @@ const api = (action) => {
     case "LEAVE":
       leaveChat(action);
       break;
+    case "SEND_MESSAGE":
+      sendMessage(action);
+      break;
+    case "MESSAGE_ADDED":
+      // intentionally do nothing here.
+      break;
     default:
+      console.log(`ERROR in DB MIDDLEWARE - Unknown action: ${action.type}`);
       break;
   }
 };

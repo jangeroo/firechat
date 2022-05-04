@@ -1,14 +1,31 @@
-import React, { useContext } from "react";
+import React, { createRef, useContext, useEffect } from "react";
 import AppContext from "./AppContext";
 import ChatWelcome from "./ChatWelcome";
 import styled from "styled-components";
 
 export default function Chatroom(props) {
   const { state, dispatch } = useContext(AppContext);
+  const messageInputRef = createRef();
+
+  useEffect(() => {
+    dispatch({ type: "MONITOR_MESSAGES", roomId: props.roomId, dispatch });
+  }, []);
 
   const handleLeaveChat = (event) => {
     console.log("Handling Leave Chat");
     dispatch({ type: "LEAVE" });
+  };
+
+  const sendMessage = (event) => {
+    event.preventDefault();
+    console.log("<Chatroom> sendMessage()");
+
+    const roomId = props.roomId;
+    const user = state.currentUser;
+    const content = messageInputRef.current.value;
+    messageInputRef.current.value = "";
+
+    dispatch({ type: "SEND_MESSAGE", roomId, user, content });
   };
 
   const renderMessage = (message, i) => {
@@ -34,6 +51,10 @@ export default function Chatroom(props) {
         </span>
         <button onClick={handleLeaveChat}>Leave Chat</button>
       </h3>
+      <form onSubmit={sendMessage}>
+        <input type="text" ref={messageInputRef} required />
+        <button>Send Message</button>
+      </form>
       <MessageList className="message-window">
         {state.messages.map(renderMessage)}
       </MessageList>
