@@ -46,11 +46,20 @@ const joinChat = (action) => {
   });
   setUpUserDisconnect(action);
   setUpDisconnectAlert(action);
+  monitorMessages(action);
 };
 
 const leaveChat = () => {
   console.log("leaving chat");
   db.goOffline();
+};
+
+const monitorMessages = ({ roomId, dispatch }) => {
+  db.ref(`${roomId}/messages`).on("child_added", (message) => {
+    console.log('messages.on("child_added"):');
+    console.log({ message: message.val() });
+    dispatch({ type: "MESSAGE_ADDED", message: message.val() });
+  });
 };
 
 const api = (action) => {

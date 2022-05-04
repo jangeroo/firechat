@@ -10,7 +10,7 @@ export default function ChatWelcome(props) {
     event.preventDefault();
     let user = usernameInputRef.current.value;
     console.log(`Handling Join Chat - ${user} is joining chat`);
-    dispatch({ type: "JOIN", user, roomId: props.roomId });
+    dispatch({ type: "JOIN", user, roomId: props.roomId, dispatch });
   };
 
   return (

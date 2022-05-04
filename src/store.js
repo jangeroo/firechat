@@ -17,10 +17,14 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "JOIN":
       return { ...state, currentUser: action.user };
-
     case "LEAVE":
       console.log(`DISPATCHED: LEAVE`);
       return { ...state, currentUser: null };
+    case "MESSAGE_ADDED":
+      console.log({ messagesBefore: state.messages });
+      const messages = state.messages.concat(action.message);
+      console.log({ messagesAfter: messages });
+      return { ...state, messages };
     default:
       return state;
   }
