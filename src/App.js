@@ -28,7 +28,7 @@ function App() {
           <DemoBanner onClose={() => setDemoBannerDisplayed(false)} />
         )}
 
-        <Chatroom roomId={3} />
+        <Chatroom roomId={"hooked-surge"} />
       </div>
     </AppContext.Provider>
   );

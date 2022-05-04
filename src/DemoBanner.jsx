@@ -6,8 +6,9 @@ export default function DemoBanner(props) {
     <DemoBannerWrapper classname="warning">
       <BannerHeading>DEMO MODE</BannerHeading>
       <p>
-        NOTE: To get a real sense of the chatroom functionality, open this app
-        in two browser windows so you can simulate being two people.
+        <strong>NOTE:</strong> To get a real sense of the chatroom
+        functionality, open this app in two browser windows so you can simulate
+        being two people.
       </p>
       <CloseButton onClick={props.onClose}>X</CloseButton>
     </DemoBannerWrapper>
