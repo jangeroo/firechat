@@ -1,4 +1,4 @@
-const tempMessages = [
+const testMessages = [
   { user: "michael", content: "__fromState__ aloha amigos" },
   { user: "betsy", content: "__fromState__ hey friend" },
   { content: "someone just joined or left" },
@@ -7,7 +7,7 @@ const tempMessages = [
 
 const initialState = {
   currentUser: null,
-  messages: tempMessages,
+  messages: [],
 };
 
 const reducer = (state, action) => {
